@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 4.0)
+project(Advent_Of_Code_2025)
+
+set(CMAKE_CXX_STANDARD 23)
+
+set(HEADER_FILES
+        source/Common/FileReader.h
+        source/Day_1/Day1Processor.h
+        source/Common/IDayProcessor.h
+        source/Common/StringUtils.h
+)
+
+set(SOURCE_FILES
+        source/Common/FileReader.cpp
+        source/Day_1/Day1Processor.cpp
+)
+
+set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES})
+
+add_executable(Advent_Of_Code_2025 source/main.cpp ${ALL_FILES})
+
+add_custom_command(
+                    TARGET Advent_Of_Code_2025 POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory
+                    ${CMAKE_SOURCE_DIR}/input
+                    $<TARGET_FILE_DIR:Advent_Of_Code_2025>/input
+                    COMMENT "Copying input files to build directory"
+)
