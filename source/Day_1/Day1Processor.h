@@ -9,12 +9,13 @@
 class Day1Processor : public IDayProcessor
 {
 public:
-	explicit Day1Processor(const std::string& InputFile) : IDayProcessor(InputFile) {};
+	Day1Processor(const std::string& InputFile, bool Part2Mode = false) : IDayProcessor(InputFile), Part2Mode(Part2Mode) {};
 
 	int Step(int lastValue) override;
 
 private:
-	void TurnDial(int Amount);
+	int TurnDial(int Amount);
 
 	int SafeDialValue = 50;
+	bool Part2Mode;
 };

@@ -4,28 +4,52 @@
 
 #include "Day1Processor.h"
 
+#include <iostream>
+
 int Day1Processor::Step(const int lastValue)
 {
-	std::string Line = InputFile.GetNextLine();
+	const std::string Line = InputFile.GetNextLine();
+	int ZeroCount = 0;
 	switch (Line[0]) {
 		case 'L':
-			TurnDial(-atoi(Line.substr(1).c_str()));
+			ZeroCount = TurnDial(-atoi(Line.substr(1).c_str()));
 			break;
 		case 'R':
-			TurnDial(atoi(Line.substr(1).c_str()));
+			ZeroCount = TurnDial(atoi(Line.substr(1).c_str()));
 			break;
 		default:
 			throw std::invalid_argument("Invalid input format!");
 	}
+
+	if (Part2Mode) {
+		return lastValue + ZeroCount;
+	}
+
 	if (SafeDialValue == 0) {
 		return lastValue+1;
 	}
 	return lastValue;
+
 }
-void Day1Processor::TurnDial(const int Amount)
+int Day1Processor::TurnDial(const int Amount)
 {
+	const int InitialDialValue = SafeDialValue;
 	SafeDialValue += Amount;
-	SafeDialValue %= 100;
-	if (SafeDialValue < 0)
-		SafeDialValue += 100;
+
+	int ZeroCount = 0;
+	while (SafeDialValue < 0 || SafeDialValue > 99)
+	{
+		SafeDialValue += SafeDialValue < 0 ? 100 : -100;
+		ZeroCount++;
+	}
+
+	if (ZeroCount > 0 && InitialDialValue == 0)
+		ZeroCount--;
+	else if (ZeroCount == 0 && SafeDialValue == 0)
+		ZeroCount = 1;
+
+	std::cout << InitialDialValue << (Amount >= 0 ? " R" : " L") << abs(Amount) << " " << SafeDialValue << std::endl;
+	std::cout << "Passed Zero " << ZeroCount << " Time(s)\n" << std::endl;
+
+	return ZeroCount;
 }

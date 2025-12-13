@@ -74,8 +74,9 @@ int main(const int ArgC, const char* ArgV[]) {
 	switch (DayNumber) {
 		case 1:
 			{
-				Day1Processor Processor(InputFileName);
-				std::cout << "Result: " << Processor.RunDay() << std::endl;
+				Day1Processor Processor(InputFileName, PartNumber == 2);
+				const int Result = Processor.RunDay();
+				std::cout << "Result: " << Result << std::endl;
 			}
 			break;
 		default:
