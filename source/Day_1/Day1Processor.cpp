@@ -4,9 +4,11 @@
 
 #include "Day1Processor.h"
 
+#include "../Common/Globals.h"
+
 #include <iostream>
 
-int Day1Processor::Step(const int lastValue)
+intmax_t Day1Processor::Step(intmax_t lastValue)
 {
 	const std::string Line = InputFile.GetNextLine();
 	int ZeroCount = 0;
@@ -48,8 +50,9 @@ int Day1Processor::TurnDial(const int Amount)
 	else if (ZeroCount == 0 && SafeDialValue == 0)
 		ZeroCount = 1;
 
-	std::cout << InitialDialValue << (Amount >= 0 ? " R" : " L") << abs(Amount) << " " << SafeDialValue << std::endl;
-	std::cout << "Passed Zero " << ZeroCount << " Time(s)\n" << std::endl;
+
+	DebugLog("{} {}{} {}", InitialDialValue, Amount >= 0 ? " R" : " L", abs(Amount), SafeDialValue);
+	DebugLog("Passed Zero {} Time(s)\n", ZeroCount);
 
 	return ZeroCount;
 }

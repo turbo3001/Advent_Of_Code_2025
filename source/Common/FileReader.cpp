@@ -13,6 +13,10 @@ FileReader::FileReader(const std::string& FileName){
 		throw std::runtime_error("Unable to open file: " + FileName);
 }
 
+void FileReader::SetLineNumber(const int LineNumber) {
+	FileToRead.seekg(LineNumber);
+}
+
 std::string FileReader::GetNextLine()
 {
 	if (!HasLine())

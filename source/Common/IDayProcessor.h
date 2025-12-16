@@ -3,24 +3,56 @@
 //
 
 #pragma once
+
+#include <cstdint>
+#include <format>
+#include <iostream>
 #include "FileReader.h"
+#include "Globals.h"
+
+static_assert(sizeof(intmax_t) == sizeof(int64_t), "This platform doesn't support integers of the correct size for the numbers used in AoC");
 
 class IDayProcessor
 {
 	public:
-	explicit IDayProcessor(const std::string& InputFile) : InputFile(InputFile) {}
+	explicit IDayProcessor(const std::string& InputFile, const bool Part2Mode) : InputFile(InputFile), Part2Mode(Part2Mode) {}
 	virtual ~IDayProcessor() = default;
-	virtual bool IsFinished() const { return !InputFile.HasLine(); };
-	virtual int Step(int lastValue) = 0;
 
-	virtual int RunDay(const int initialValue = 0) {
-		int result = initialValue;
-		while (!IsFinished()) {
-			result = Step(result);
-		}
-		return result;
-	};
+	virtual void ReproduceInputFile();
+
+	virtual bool IsFinished() const { return !InputFile.HasLine(); };
+	virtual intmax_t Step(intmax_t lastValue) = 0;
+	virtual intmax_t RunDay(const intmax_t initialValue = 0);
 
 protected:
+	template<typename... _Args>
+	void DebugLog(std::format_string<_Args...> format, _Args&&... arguments) const{
+		if (Globals::Get().VerboseMode) {
+			std::string DebugString;
+			auto BackInserter = std::back_inserter(DebugString);
+			std::format_to(BackInserter, format, std::forward<_Args>(arguments)...);
+			std::cout << DebugString.c_str() << std::endl;
+		}
+	}
+
 	FileReader InputFile;
+	bool Part2Mode;
+};
+
+inline intmax_t IDayProcessor::RunDay(const intmax_t initialValue) {
+	int result = initialValue;
+	while (!IsFinished()) {
+		result = Step(result);
+	}
+	return result;
+}
+
+inline void IDayProcessor::ReproduceInputFile() {
+	const int InitialPosition = InputFile.GetLineNumber();
+	InputFile.SetLineNumber(0);
+	while (InputFile.HasLine())
+	{
+		std::cout << InputFile.GetNextLine().c_str() << std::endl;
+	}
+	InputFile.SetLineNumber(InitialPosition);
 };

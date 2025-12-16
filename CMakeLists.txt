@@ -5,17 +5,24 @@ set(CMAKE_CXX_STANDARD 23)
 
 set(HEADER_FILES
         source/Common/FileReader.h
-        source/Day_1/Day1Processor.h
         source/Common/IDayProcessor.h
         source/Common/StringUtils.h
+        source/Common/Globals.h
 )
 
 set(SOURCE_FILES
         source/Common/FileReader.cpp
-        source/Day_1/Day1Processor.cpp
+        source/Common/StringUtils.cpp
 )
 
-set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES})
+set(DAY_PROCESSORS
+        source/Day_1/Day1Processor.h
+        source/Day_1/Day1Processor.cpp
+        source/Day_2/Day2Processor.h
+        source/Day_2/Day2Processor.cpp
+)
+
+set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES} ${DAY_PROCESSORS})
 
 add_executable(Advent_Of_Code_2025 source/main.cpp ${ALL_FILES})
 
