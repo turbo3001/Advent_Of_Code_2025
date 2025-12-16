@@ -21,7 +21,7 @@ class IDayProcessor
 	virtual void ReproduceInputFile();
 
 	virtual bool IsFinished() const { return !InputFile.HasLine(); };
-	virtual intmax_t Step(intmax_t lastValue) = 0;
+	virtual intmax_t Step(const intmax_t lastValue) = 0;
 	virtual intmax_t RunDay(const intmax_t initialValue = 0);
 
 protected:
@@ -36,12 +36,15 @@ protected:
 	}
 
 	FileReader InputFile;
+	intmax_t StepCount = 0;
 };
 
 inline intmax_t IDayProcessor::RunDay(const intmax_t initialValue) {
+	StepCount = 0;
 	int result = initialValue;
 	while (!IsFinished()) {
 		result = Step(result);
+		StepCount++;
 	}
 	return result;
 }

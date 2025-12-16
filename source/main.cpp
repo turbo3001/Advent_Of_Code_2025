@@ -5,6 +5,7 @@
 #include "Common/StringUtils.h"
 #include "Day_1/Day1Processor.h"
 #include "Day_2/Day2Processor.h"
+#include "Day_3/Day3Processor.hpp"
 
 struct CommandLineArguments {
 	int DayNumber = 0;
@@ -94,22 +95,32 @@ int main(const int ArgC, const char* ArgV[]) {
 
 	Globals::Get().Part2Mode = PartNumber == 2;
 
+	IDayProcessor* Processor = nullptr;
 	switch (DayNumber) {
 		case 1:
 		{
-			Day1Processor Processor(InputFileName);
-			const int Result = Processor.RunDay();
-			std::cout << "Result: " << Result << std::endl;
+			Processor = new Day1Processor(InputFileName);
 		}
 			break;
 		case 2:
 		{
-			Day2Processor Processor(InputFileName);
-			const int Result = Processor.RunDay();
-			std::cout << "Result: " << Result << std::endl;
+			Processor = new Day2Processor(InputFileName);
+		}
+			break;
+		case 3:
+		{
+			Processor = new Day3Processor(InputFileName);
 		}
 			break;
 		default:
 			std::cerr << "Day number (" << DayNumber << ") is not yet handled!" << std::endl;
+			return -1;
+	}
+
+	if (Processor != nullptr)
+	{
+		const int Result = Processor->RunDay();
+		std::cout << "Result: " << Result << std::endl;
+		delete Processor;
 	}
 }

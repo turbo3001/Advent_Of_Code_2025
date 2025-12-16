@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-intmax_t Day1Processor::Step(intmax_t lastValue)
+intmax_t Day1Processor::Step(const intmax_t lastValue)
 {
 	const std::string Line = InputFile.GetNextLine();
 	int ZeroCount = 0;
