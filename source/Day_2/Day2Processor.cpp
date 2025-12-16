@@ -9,7 +9,7 @@
 #include "../Common/Globals.h"
 #include "../Common/StringUtils.h"
 
-Day2Processor::Day2Processor(const std::string &InputFileName, const bool Part2Mode) : IDayProcessor(InputFileName, Part2Mode)
+Day2Processor::Day2Processor(const std::string &InputFileName) : IDayProcessor(InputFileName)
 {
 	while (InputFile.HasLine()) {
 		using namespace std;

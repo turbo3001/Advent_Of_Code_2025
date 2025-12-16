@@ -15,7 +15,7 @@ static_assert(sizeof(intmax_t) == sizeof(int64_t), "This platform doesn't suppor
 class IDayProcessor
 {
 	public:
-	explicit IDayProcessor(const std::string& InputFile, const bool Part2Mode) : InputFile(InputFile), Part2Mode(Part2Mode) {}
+	explicit IDayProcessor(const std::string& InputFile) : InputFile(InputFile) {}
 	virtual ~IDayProcessor() = default;
 
 	virtual void ReproduceInputFile();
@@ -36,7 +36,6 @@ protected:
 	}
 
 	FileReader InputFile;
-	bool Part2Mode;
 };
 
 inline intmax_t IDayProcessor::RunDay(const intmax_t initialValue) {

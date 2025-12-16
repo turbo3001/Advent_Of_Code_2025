@@ -23,7 +23,7 @@ intmax_t Day1Processor::Step(intmax_t lastValue)
 			throw std::invalid_argument("Invalid input format!");
 	}
 
-	if (Part2Mode) {
+	if (Globals::Get().Part2Mode) {
 		return lastValue + ZeroCount;
 	}
 

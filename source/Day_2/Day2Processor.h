@@ -9,7 +9,7 @@
 class Day2Processor : public IDayProcessor
 {
 public:
-	explicit Day2Processor(const std::string& InputFileName, bool Part2Mode = false);
+	explicit Day2Processor(const std::string& InputFileName);
 	bool IsFinished() const override;
 	intmax_t Step(intmax_t lastValue) override;
 	void ReproduceInputFile() override;

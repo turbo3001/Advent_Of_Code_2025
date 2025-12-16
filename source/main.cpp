@@ -97,14 +97,14 @@ int main(const int ArgC, const char* ArgV[]) {
 	switch (DayNumber) {
 		case 1:
 		{
-			Day1Processor Processor(InputFileName, PartNumber == 2);
+			Day1Processor Processor(InputFileName);
 			const int Result = Processor.RunDay();
 			std::cout << "Result: " << Result << std::endl;
 		}
 			break;
 		case 2:
 		{
-			Day2Processor Processor(InputFileName, PartNumber == 2);
+			Day2Processor Processor(InputFileName);
 			const int Result = Processor.RunDay();
 			std::cout << "Result: " << Result << std::endl;
 		}

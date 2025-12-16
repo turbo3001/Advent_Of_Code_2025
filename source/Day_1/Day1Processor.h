@@ -9,7 +9,7 @@
 class Day1Processor : public IDayProcessor
 {
 public:
-	explicit Day1Processor(const std::string& InputFileName, bool Part2Mode = false) : IDayProcessor(InputFileName, Part2Mode) {};
+	explicit Day1Processor(const std::string& InputFileName) : IDayProcessor(InputFileName) {};
 	intmax_t Step(intmax_t lastValue) override;
 private:
 	int TurnDial(int Amount);
