@@ -3,24 +3,33 @@
 //
 
 #include "Day3Processor.hpp"
+
+std::string GetJoltageString(const std::string_view& Line, const int RemainingDepth)
+{
+	if (RemainingDepth <= 0 || Line.length() == 0)
+		return "";
+
+	int LastJoltage = 0;
+	int CurrentIndex = 0;
+	for (int i = 0; i < Line.length() - (RemainingDepth - 1); ++i)
+	{
+		const std::string_view Character = Line.substr(i, 1);
+		int Joltage;
+		std::from_chars(Character.data(), Character.data() + Character.length(), Joltage);
+		if (Joltage > LastJoltage)
+		{
+			LastJoltage = Joltage;
+			CurrentIndex = i;
+		}
+	}
+	return Line[CurrentIndex] + GetJoltageString(Line.substr(CurrentIndex+1), RemainingDepth-1);
+}
+
 intmax_t Day3Processor::Step(const intmax_t lastValue)
 {
 	const std::string& Line = InputFile.GetNextLine();
-	int LastJoltage = 0;
-	for (int TensIndex = 0; TensIndex < Line.length(); ++TensIndex)
-	{
-		const std::string TensLine = Line.substr(TensIndex, 1);
-		const int TensValue = std::stoi(TensLine) * 10;
-		if (TensValue < LastJoltage)
-			continue;
-
-		for (int UnitsValue = TensIndex+1; UnitsValue < Line.length(); ++UnitsValue)
-		{
-			const std::string UnitsLine = Line.substr(UnitsValue, 1);
-			const int Joltage = TensValue + std::stoi(UnitsLine);
-			if (Joltage > LastJoltage)
-				LastJoltage = Joltage;
-		}
-	}
-	return lastValue + LastJoltage;
+	const std::string JoltageString = GetJoltageString(Line, Globals::Get().Part2Mode ? 12 : 2);
+	const intmax_t Joltage = std::stoll(JoltageString);
+	const intmax_t NextValue = lastValue + Joltage;
+	return NextValue;
 }

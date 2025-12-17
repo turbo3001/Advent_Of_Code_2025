@@ -119,7 +119,7 @@ int main(const int ArgC, const char* ArgV[]) {
 
 	if (Processor != nullptr)
 	{
-		const int Result = Processor->RunDay();
+		const intmax_t Result = Processor->RunDay();
 		std::cout << "Result: " << Result << std::endl;
 		delete Processor;
 	}

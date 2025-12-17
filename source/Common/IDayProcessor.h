@@ -41,7 +41,7 @@ protected:
 
 inline intmax_t IDayProcessor::RunDay(const intmax_t initialValue) {
 	StepCount = 0;
-	int result = initialValue;
+	intmax_t result = initialValue;
 	while (!IsFinished()) {
 		result = Step(result);
 		StepCount++;
