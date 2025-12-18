@@ -36,14 +36,21 @@ Day5Processor::Day5Processor(const std::string &InputFileName)
 
   if (Globals::Get().VerboseMode)
     ReproduceInputFile();
+
+  std::sort(Ranges.begin(), Ranges.end(), [](const auto& a, const auto& b) -> bool { return std::get<0>(a) < std::get<0>(b); });
 }
+
+void Day5Processor::PrintRanges() const
+  {
+  for (const auto &Range : Ranges)
+    {
+    std::cout << std::get<0>(Range) << "-" << std::get<1>(Range) << std::endl;
+    }
+  }
 
 void Day5Processor::ReproduceInputFile()
 {
-  for (const auto& Range : Ranges)
-  {
-    std::cout << std::get<0>(Range) << "-" << std::get<1>(Range) << std::endl;
-  }
+  PrintRanges();
 
   std::cout << std::endl;
 
@@ -53,13 +60,40 @@ void Day5Processor::ReproduceInputFile()
   }
 
 }
-bool Day5Processor::IsFinished() const{ return CurrentIDIdx > AvailableIDs.size(); }
+bool Day5Processor::IsFinished() const
+{
+  if (!Globals::Get().Part2Mode)
+    return IsPart1Finished();
+  return IsPart2Finished();
+}
 
 
 intmax_t Day5Processor::Step(const intmax_t LastValue)
 {
-  const uint_fast64_t CurrentID = AvailableIDs[CurrentIDIdx++];
-  DebugLog("Processing ID {}: {}", CurrentIDIdx, CurrentID);
+  if (!Globals::Get().Part2Mode)
+    return StepPart1(LastValue);
+  return StepPart2(LastValue);
+}
+bool Day5Processor::IsFreshIngredient(const uint_fast64_t ID) const
+  {
+  for (const auto &Range : Ranges)
+  {
+      const int_fast64_t RangeStart = std::get<0>(Range);
+  if (const int_fast64_t RangeEnd = std::get<1>(Range);
+      ID >= RangeStart && ID <= RangeEnd)
+        return true;
+  }
+  return false;
+}
+bool Day5Processor::IsPart1Finished() const
+{
+  return CurrentIndex >= AvailableIDs.size();
+}
+
+intmax_t Day5Processor::StepPart1(const intmax_t LastValue)
+{
+  const uint_fast64_t CurrentID = AvailableIDs[CurrentIndex++];
+  DebugLog("Processing ID {}: {}", CurrentIndex, CurrentID);
   intmax_t NewValue = LastValue;
   if (IsFreshIngredient(CurrentID))
   {
@@ -72,14 +106,37 @@ intmax_t Day5Processor::Step(const intmax_t LastValue)
   }
   return NewValue;
 }
-bool Day5Processor::IsFreshIngredient(const uint_fast64_t ID) const
+bool Day5Processor::IsPart2Finished() const
+{
+  return CurrentIndex >= Ranges.size();
+}
+intmax_t Day5Processor::StepPart2(const intmax_t LastValue)
+{
+  const auto Range = Ranges[CurrentIndex++];
+  const uint_fast64_t RangeStart = std::get<0>(Range);
+  const uint_fast64_t RangeEnd = std::get<1>(Range);
+
+  DebugLog("LastMax = {}", LastMax);
+  DebugLog("Range: {} -> {}", RangeStart, RangeEnd);
+
+  intmax_t NewValue = LastValue;
+  if (RangeStart > LastMax)
   {
-  for (const auto &Range : Ranges)
-  {
-      const int_fast64_t RangeStart = std::get<0>(Range);
-  if (const int_fast64_t RangeEnd = std::get<1>(Range);
-      ID >= RangeStart && ID <= RangeEnd)
-        return true;
+    const uint_fast64_t AdditionalIDCount = (RangeEnd - RangeStart) + 1;
+    DebugLog("New Range: {} New IDs", AdditionalIDCount);
+    NewValue += AdditionalIDCount;
+    LastMax = RangeEnd;
   }
-  return false;
+  else if (RangeEnd > LastMax)
+  {
+    const uint_fast64_t AdditionalIDCount = RangeEnd - LastMax;
+    DebugLog("Overlapping Range: {} New IDs", AdditionalIDCount);
+    NewValue += AdditionalIDCount;
+    LastMax = RangeEnd;
+  }
+  else
+  {
+    DebugLog("Range Skipped, no new IDs", LastMax);
+  }
+  return NewValue;
 }
