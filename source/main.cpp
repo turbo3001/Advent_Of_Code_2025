@@ -7,6 +7,7 @@
 #include "Day_2/Day2Processor.h"
 #include "Day_3/Day3Processor.hpp"
 #include "Day_4/Day4Processor.hpp"
+#include "Day_5/Day5Processor.hpp"
 
 struct CommandLineArguments {
 	int DayNumber = 0;
@@ -116,6 +117,11 @@ int main(const int ArgC, const char* ArgV[]) {
 		case 4:
 		{
 			Processor = new Day4Processor(InputFileName);
+		}
+			break;
+		case 5:
+		{
+			Processor = new Day5Processor(InputFileName);
 		}
 			break;
 		default:
