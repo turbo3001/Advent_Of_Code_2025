@@ -15,17 +15,27 @@ public:
 	void ReproduceInputFile() override;
 
 private:
-	struct MapRow{
-		std::vector<bool> columns;
-	};
+	typedef std::vector<bool> MapRow;
 
-	struct {
+	struct PaperMap{
 		std::vector<MapRow> rows;
 
 		bool GetPos(const int x, const int y) const {
-			return rows[y].columns[x];
+			return rows[y][x];
 		}
-	} PaperMap;
+
+		void Print() const {
+			for (const MapRow& Row : rows) {
+				for (const bool& Column : Row) {
+					std::cout << (Column ? "@" : ".");
+				}
+				std::cout << std::endl;
+			}
+		}
+	} Map;
+
+	intmax_t ProcessRow(MapRow& NewRow) const;
 
 	int CurrentY = 0;
+	bool Finished = false;
 };

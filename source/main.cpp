@@ -123,10 +123,15 @@ int main(const int ArgC, const char* ArgV[]) {
 			return -1;
 	}
 
-	if (Processor != nullptr)
-	{
-		const intmax_t Result = Processor->RunDay();
-		std::cout << "Result: " << Result << std::endl;
-		delete Processor;
+	try {
+		if (Processor != nullptr)
+		{
+			const intmax_t Result = Processor->RunDay();
+			std::cout << "Result: " << Result << std::endl;
+			delete Processor;
+		}
+	}
+	catch (std::exception& e) {
+		throw;
 	}
 }
