@@ -11,7 +11,7 @@ class Day4Processor : public IDayProcessor
 public:
 	explicit  Day4Processor(const std::string& InputFileName);
 	bool IsFinished() const override;
-	intmax_t Step(const intmax_t lastValue) override;
+	intmax_t Step(intmax_t LastValue) override;
 	void ReproduceInputFile() override;
 
 private:

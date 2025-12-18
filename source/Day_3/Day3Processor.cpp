@@ -25,11 +25,11 @@ std::string GetJoltageString(const std::string_view& Line, const int RemainingDe
 	return Line[CurrentIndex] + GetJoltageString(Line.substr(CurrentIndex+1), RemainingDepth-1);
 }
 
-intmax_t Day3Processor::Step(const intmax_t lastValue)
+intmax_t Day3Processor::Step(const intmax_t LastValue)
 {
 	const std::string& Line = InputFile.GetNextLine();
 	const std::string JoltageString = GetJoltageString(Line, Globals::Get().Part2Mode ? 12 : 2);
 	const intmax_t Joltage = std::stoll(JoltageString);
-	const intmax_t NextValue = lastValue + Joltage;
+	const intmax_t NextValue = LastValue + Joltage;
 	return NextValue;
 }

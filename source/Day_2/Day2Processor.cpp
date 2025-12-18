@@ -56,8 +56,8 @@ bool IsValidID(const intmax_t &ID) {
 	return FirstHalf != SecondHalf;
 }
 
-intmax_t Day2Processor::Step(const intmax_t lastValue) {
-	int Result = lastValue;
+intmax_t Day2Processor::Step(const intmax_t LastValue) {
+	int Result = LastValue;
 	const auto &[RangeStart, RangeEnd] = IDRanges[CurrentRangeIndex++];
 	for (intmax_t i = RangeStart; i <= RangeEnd; i++)
 	{

@@ -33,10 +33,10 @@ bool Day4Processor::IsFinished() const {
 	return Finished;
 }
 
-intmax_t Day4Processor::Step(const intmax_t lastValue) {
+intmax_t Day4Processor::Step(const intmax_t LastValue) {
 	if (!Globals::Get().Part2Mode) {
 		MapRow NewMapRow;
-		const intmax_t NextValue = lastValue + ProcessRow(NewMapRow);
+		const intmax_t NextValue = LastValue + ProcessRow(NewMapRow);
 		CurrentY++;
 		return NextValue;
 	}
@@ -54,7 +54,7 @@ intmax_t Day4Processor::Step(const intmax_t lastValue) {
 		NewMap.Print();
 	Finished = (MovablePaper == 0);
 	Map = NewMap;
-	return lastValue + MovablePaper;
+	return LastValue + MovablePaper;
 }
 
 intmax_t Day4Processor::ProcessRow(MapRow &NewRow) const {

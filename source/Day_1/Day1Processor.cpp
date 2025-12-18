@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-intmax_t Day1Processor::Step(const intmax_t lastValue)
+intmax_t Day1Processor::Step(const intmax_t LastValue)
 {
 	const std::string Line = InputFile.GetNextLine();
 	int ZeroCount = 0;
@@ -24,13 +24,13 @@ intmax_t Day1Processor::Step(const intmax_t lastValue)
 	}
 
 	if (Globals::Get().Part2Mode) {
-		return lastValue + ZeroCount;
+		return LastValue + ZeroCount;
 	}
 
 	if (SafeDialValue == 0) {
-		return lastValue+1;
+		return LastValue+1;
 	}
-	return lastValue;
+	return LastValue;
 
 }
 int Day1Processor::TurnDial(const int Amount)
