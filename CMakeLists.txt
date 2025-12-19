@@ -8,6 +8,7 @@ set(HEADER_FILES
         source/Common/IDayProcessor.h
         source/Common/StringUtils.h
         source/Common/Globals.h
+        source/Common/DebugHelpers.hpp
 )
 
 set(SOURCE_FILES

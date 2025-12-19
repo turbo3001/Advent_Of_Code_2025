@@ -25,16 +25,6 @@ class IDayProcessor
 	virtual intmax_t RunDay(const intmax_t InitialValue = 0);
 
 protected:
-	template<typename... _Args>
-	void DebugLog(std::format_string<_Args...> format, _Args&&... arguments) const{
-		if (Globals::Get().VerboseMode) {
-			std::string DebugString;
-			auto BackInserter = std::back_inserter(DebugString);
-			std::format_to(BackInserter, format, std::forward<_Args>(arguments)...);
-			std::cout << DebugString.c_str() << std::endl;
-		}
-	}
-
 	FileReader InputFile;
 	intmax_t StepCount = 0;
 };

@@ -5,6 +5,7 @@
 #include "Day1Processor.h"
 
 #include "../Common/Globals.h"
+#include "../Common/DebugHelpers.hpp"
 
 #include <iostream>
 

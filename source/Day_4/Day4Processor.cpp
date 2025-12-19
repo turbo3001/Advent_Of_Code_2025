@@ -4,6 +4,8 @@
 
 #include "Day4Processor.hpp"
 
+#include "../Common/DebugHelpers.hpp"
+
 
 
 Day4Processor::Day4Processor(const std::string &InputFileName) : IDayProcessor(InputFileName)

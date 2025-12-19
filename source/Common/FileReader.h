@@ -28,6 +28,19 @@ public:
 		return ParseFunction(Line);
 	}
 
+        template<typename DataType>
+        DataType ParseRemainderOfFile(std::function<DataType(FileReader*)> ParseFunction)
+	{
+          return ParseFunction(this);
+	}
+
+        template<typename DataType>
+        DataType ParseWholeFile(std::function<DataType(FileReader*)> ParseFunction)
+	{
+	  SetLineNumber(0);
+	  return ParseFunction(this);
+	}
+
 private:
 	std::ifstream FileToRead;
 };

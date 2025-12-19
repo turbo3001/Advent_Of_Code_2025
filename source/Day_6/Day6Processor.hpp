@@ -13,12 +13,15 @@ public:
   bool IsFinished() const override;
   intmax_t Step(intmax_t LastValue) override;
 
-private:
   struct Problem
   {
     std::vector<uintmax_t> Operands;
     bool Multiply;
   };
-  std::vector<Problem> Problems;
+
+  typedef std::vector<Problem> ProblemsType;
+
+private:
+  ProblemsType Problems;
   size_t CurrentProblemIndex = 0;
 };

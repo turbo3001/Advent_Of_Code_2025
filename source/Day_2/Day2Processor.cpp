@@ -4,10 +4,11 @@
 
 #include "Day2Processor.h"
 
-#include <cmath>
-#include <sstream>
 #include "../Common/Globals.h"
 #include "../Common/StringUtils.h"
+#include "../Common/DebugHelpers.hpp"
+#include <cmath>
+#include <sstream>
 
 Day2Processor::Day2Processor(const std::string &InputFileName) : IDayProcessor(InputFileName)
 {

@@ -3,6 +3,8 @@
 //
 
 #include "Day5Processor.hpp"
+#include "../Common/DebugHelpers.hpp"
+
 Day5Processor::Day5Processor(const std::string &InputFileName)
     : IDayProcessor(InputFileName)
 {

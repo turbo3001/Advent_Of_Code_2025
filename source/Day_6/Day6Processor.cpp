@@ -4,12 +4,14 @@
 
 #include "Day6Processor.hpp"
 #include <sstream>
+#include "../Common/DebugHelpers.hpp"
 
-Day6Processor::Day6Processor(const std::string &InputFileName) : IDayProcessor(InputFileName)
+Day6Processor::ProblemsType ParsePart1Problems(FileReader* InputFile)
 {
-  while (InputFile.HasLine())
+  Day6Processor::ProblemsType Problems;
+  while (InputFile->HasLine())
   {
-    auto StringStream = std::stringstream(InputFile.GetNextLine());
+    auto StringStream = std::stringstream(InputFile->GetNextLine());
 
     int ProblemNumber = 0;
     std::string Token;
@@ -30,6 +32,74 @@ Day6Processor::Day6Processor(const std::string &InputFileName) : IDayProcessor(I
       }
     }
   }
+  return Problems;
+}
+
+Day6Processor::ProblemsType ParsePart2Problems(FileReader* InputFile)
+{
+  Day6Processor::ProblemsType Problems;
+  std::vector<std::string> InputLines;
+  while (InputFile->HasLine())
+  {
+    std::string Line = InputFile->GetNextLine();
+
+    if (Line.empty())
+      throw std::runtime_error(std::format("Empty Line found on Line {}",InputFile->GetLineNumber()));
+
+    if (InputLines.size() > 0 && Line.size() != InputLines[0].size())
+    {
+      DebugLog("Next Line length ({}) doesn't match length of previous lines ({}), extending previous lines", Line.size(), InputLines[0].size());
+      for (std::string& InputLine : InputLines)
+      {
+        for (int i = InputLine.size(); i < Line.size(); ++i)
+        {
+          InputLine += " ";
+        }
+        for (int i = Line.size(); i < InputLine.size(); ++i)
+        {
+          Line += " ";
+        }
+      }
+    }
+
+    InputLines.emplace_back(Line);
+  }
+
+  std::vector<uintmax_t> Operands;
+  Operands.reserve(InputLines.size()-1);
+  for (int Column = InputLines[0].size()-1; Column >= 0; --Column)
+  {
+    std::string CurrentDigit = "";
+    for (int Row = 0; Row < InputLines.size() - 1; ++Row)
+    {
+      const std::string& Line = InputLines[Row];
+      if (Line[Column] == ' ')
+        continue;
+      CurrentDigit += Line[Column];
+    }
+
+    if (CurrentDigit.size() <= 0)
+      continue;
+
+    Operands.push_back(std::stoll(CurrentDigit));
+
+    if (const std::string CurrentOperand =
+            InputLines[InputLines.size() - 1].substr(Column, 1);
+        CurrentOperand != " ")
+    {
+      Problems.push_back({Operands, CurrentOperand == "*"});
+      Operands.clear();
+    }
+  }
+  return Problems;
+}
+
+Day6Processor::Day6Processor(const std::string &InputFileName) : IDayProcessor(InputFileName)
+{
+  if (!Globals::Get().Part2Mode)
+    Problems = InputFile.ParseWholeFile<ProblemsType>(&ParsePart1Problems);
+  else
+    Problems = InputFile.ParseWholeFile<ProblemsType>(&ParsePart2Problems);
 
   if (Globals::Get().VerboseMode)
     ReproduceInputFile();
