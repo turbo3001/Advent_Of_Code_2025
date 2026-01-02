@@ -15,8 +15,8 @@ public:
 	~FileReader() { FileToRead.close(); };
 
 	bool HasLine() const { return FileToRead.is_open() && !FileToRead.eof(); };
-	void SetLineNumber(int LineNumber);
-	int GetLineNumber() { return FileToRead.tellg(); };
+	void SetLineNumber(int NewLineNumber);
+	int GetLineNumber() const { return LineNumber; };
 
 	std::string GetNextLine();
 
@@ -43,4 +43,5 @@ public:
 
 private:
 	std::ifstream FileToRead;
+        int LineNumber = 0;
 };
