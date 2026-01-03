@@ -11,27 +11,7 @@ Day8Processor::Day8Processor(const std::string &InputFileName)
   {
   while (InputFile.HasLine())
     {
-    const VectorType3D Junction = InputFile.GetNextLine<VectorType3D>(
-        [](const std::string_view &line) -> VectorType3D
-        {
-          VectorType3D Result(0LL, 0LL, 0LL);
-          int Dim = 0;
-          int lastIndex = 0;
-          while (lastIndex < line.size() && Dim < 3)
-            {
-            const int nextIndex = line.find_first_of(',', lastIndex);
-            const std::string_view token =
-                line.substr(lastIndex, nextIndex - lastIndex);
-            Result[Dim] = std::atoi(token.data());
-            lastIndex = nextIndex + 1;
-            Dim++;
-            }
-
-          if (Dim < 3 || lastIndex != (std::string::npos + 1))
-            throw std::runtime_error("Invalid input!");
-
-          return Result;
-        });
+    const VectorType3D Junction = InputFile.GetNextLine<VectorType3D>(VectorType3D::ParseFromString);
     JunctionBoxes.emplace_back(Junction);
     }
 

@@ -35,6 +35,8 @@ set(DAY_PROCESSORS
         source/Day_7/Day7Processor.hpp
         source/Day_8/Day8Processor.cpp
         source/Day_8/Day8Processor.hpp
+        source/Day_9/Day9Processor.cpp
+        source/Day_9/Day9Processor.hpp
 )
 
 set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES} ${DAY_PROCESSORS})

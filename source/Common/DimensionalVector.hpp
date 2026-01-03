@@ -11,6 +11,27 @@
 template <typename DataType, std::size_t Size>
 struct DimensionalVector
 {
+  static DimensionalVector ParseFromString(const std::string_view& String)
+  {
+    DimensionalVector Result;
+    int Dim = 0;
+    size_t lastIndex = 0;
+    while (lastIndex < String.size() && Dim < Size)
+    {
+      const size_t nextIndex = String.find_first_of(',', lastIndex);
+      const std::string_view token =
+          String.substr(lastIndex, nextIndex - lastIndex);
+      Result[Dim++] = std::atoi(token.data());
+      lastIndex = nextIndex + 1;
+    }
+
+    if (Dim < Size || lastIndex != (std::string::npos + 1))
+      throw std::runtime_error("Invalid input!");
+
+    return Result;
+  }
+
+  DimensionalVector() = default;
   template<std::same_as<DataType>... Args>
   explicit DimensionalVector(Args... Data)
   {
@@ -80,4 +101,5 @@ private:
 };
 
 typedef DimensionalVector<int, 3> IntVector3D;
+typedef DimensionalVector<int, 2> IntVector2D;
 typedef DimensionalVector<intmax_t, 3> IntMaxVector3D;
