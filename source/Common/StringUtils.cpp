@@ -3,6 +3,9 @@
 //
 
 #include "StringUtils.h"
+
+#include <algorithm>
+
 bool StringEqualCaseInsensitive(const std::string_view &lhs, const std::string_view &rhs) {
 	auto caseInsensitive = [](const char a, const char b) -> bool { return tolower(a) == tolower(b); };
 	return std::ranges::equal(lhs, rhs, caseInsensitive);

@@ -3,7 +3,6 @@
 //
 
 #pragma once
-#include <algorithm>
 #include <string>
 
 bool StringEqualCaseInsensitive(const std::string_view& lhs, const std::string_view& rhs);
