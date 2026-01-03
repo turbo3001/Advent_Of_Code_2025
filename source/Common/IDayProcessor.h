@@ -8,7 +8,6 @@
 #include <format>
 #include <iostream>
 #include "FileReader.h"
-#include "Globals.h"
 
 static_assert(sizeof(intmax_t) == sizeof(int64_t), "This platform doesn't support integers of the correct size for the numbers used in AoC");
 

@@ -16,7 +16,8 @@ public:
 
 	bool HasLine() const { return FileToRead.is_open() && !FileToRead.eof(); };
 	void SetLineNumber(int NewLineNumber);
-	int GetLineNumber() const { return LineNumber; };
+	int GetLineNumber() const;
+        ;
 
 	std::string GetNextLine();
 

@@ -10,6 +10,7 @@
 #include "Day_5/Day5Processor.hpp"
 #include "Day_6/Day6Processor.hpp"
 #include "Day_7/Day7Processor.hpp"
+#include "Day_8/Day8Processor.hpp"
 
 struct CommandLineArguments {
 	int DayNumber = 0;
@@ -136,18 +137,21 @@ int main(const int ArgC, const char* ArgV[]) {
 	          Processor = new Day7Processor(InputFileName);
 	        }
 	        break;
+	        case 8:
+	        {
+	          Processor = new Day8Processor(InputFileName);
+	        }
+	        break;
 		default:
 			std::cerr << "Day number (" << DayNumber << ") is not yet handled!" << std::endl;
 			return -1;
 	}
 
-	try {
-		if (Processor != nullptr)
-		{
-			const intmax_t Result = Processor->RunDay();
-			std::cout << "Result: " << Result << std::endl;
-			delete Processor;
-		}
+	try
+	{
+	  const intmax_t Result = Processor->RunDay();
+	  std::cout << "Result: " << Result << std::endl;
+	  delete Processor;
 	}
 	catch (std::exception& e) {
 		throw;

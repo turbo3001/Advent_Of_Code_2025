@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 project(Advent_Of_Code_2025)
 
 set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 
 set(HEADER_FILES
         source/Common/FileReader.h
@@ -9,6 +10,7 @@ set(HEADER_FILES
         source/Common/StringUtils.h
         source/Common/Globals.h
         source/Common/DebugHelpers.hpp
+        source/Common/DimensionalVector.hpp
 )
 
 set(SOURCE_FILES
@@ -31,6 +33,8 @@ set(DAY_PROCESSORS
         source/Day_6/Day6Processor.hpp
         source/Day_7/Day7Processor.cpp
         source/Day_7/Day7Processor.hpp
+        source/Day_8/Day8Processor.cpp
+        source/Day_8/Day8Processor.hpp
 )
 
 set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES} ${DAY_PROCESSORS})

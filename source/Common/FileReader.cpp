@@ -31,6 +31,11 @@ void FileReader::SetLineNumber(const int NewLineNumber)
       throw std::invalid_argument("Invalid line number!");
 }
 
+int FileReader::GetLineNumber() const
+{
+  return LineNumber;
+}
+
 std::string FileReader::GetNextLine()
 {
   if (!HasLine())

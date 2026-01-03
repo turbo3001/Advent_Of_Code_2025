@@ -4,6 +4,8 @@
 
 #include "Day3Processor.hpp"
 
+#include "../Common/Globals.h"
+
 std::string GetJoltageString(const std::string_view& Line, const int RemainingDepth)
 {
 	if (RemainingDepth <= 0 || Line.length() == 0)
